@@ -1,5 +1,5 @@
 :root {
-    --primary-color: rgb(11, 172, 175);
+    --primary-background: linear-gradient(to right, #7600ff , #ff0069e0);
     --error-color-primary: rgb(190, 35, 35);
 }
 
@@ -17,7 +17,7 @@ body {
 }
 
 #sidebar{
-    background-color: lightgray;
+    background-color: #eeeeee;
     min-height: 100%;
     grid-row:2/3;
 
@@ -25,7 +25,7 @@ body {
 }
 
 #header {
-    background-color: var(--primary-color);
+    background-image: var(--primary-background);
     width: 100%;
     grid-column: 1/3;
     box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
@@ -63,7 +63,7 @@ li:hover {
 }
 
 .active {
-    background-color: var(--primary-color);
+    background-image: var(--primary-background);
     color: white;
 }
 
@@ -78,7 +78,7 @@ hr {
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,0.6);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     left: 0;
@@ -108,4 +108,40 @@ hr {
     padding-right: 10px;
     cursor: pointer;
     margin-left: auto;
+}
+
+#main-inner-container {
+    padding: 40px;
+    font-size: 14px;
+}
+
+#tasks-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.task {
+    border: 1px solid gray;
+    border-radius: 5px;
+    padding:10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.task-controls {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.due-date {
+    font-size: 13px;
+}
+
+.btn:hover {
+    color: var(--primary-color);
+    cursor: pointer;
 }

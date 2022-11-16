@@ -28,6 +28,7 @@ projects.newProject('test', 'other stuff', 'default')
 
 function displayModal(){
     const modal = document.getElementById('taskModal');
+    modal.style.display = 'flex';
  
 }
 
