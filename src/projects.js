@@ -9,13 +9,12 @@ const Project = (title, description, type) => {
 
 
 const newProject = (title, description, type) => {
+    //first check to see if any other projects already exist with name provided and error if so
     const projectsWithTitle = projectList.filter(project => project.title === title);
     if (projectsWithTitle.length !== 0 ) {
         console.log('error this is a duplicate');
         return;
     }
-
-    console.log('success');
 
     const newProject = Project(title, description, type);
     projectList.push(newProject);
@@ -32,6 +31,8 @@ const deleteProject = (id) => {
     const index = projectList.findIndex(project => project.id === id);
     projectList.splice(index, 1);
 }
+
+
 
 export {
     projectList,

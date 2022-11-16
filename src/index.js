@@ -1,6 +1,7 @@
 import { projectList } from './projects.js';
 import * as tasks from './tasks.js';
 import * as projects from './projects.js';
+import './style.css';
 
 
 //stuff below for testing functions
@@ -14,8 +15,8 @@ let uid = tasks.tasksList[0].id;
 tasks.editTask(uid, 'ive been updated', 'some more infrmation', 'tomorrow', 'high', 'default');
 console.log(JSON.parse(JSON.stringify(tasks.tasksList)));
 
-//tasks.deleteTask(uid);
-//console.log(JSON.parse(JSON.stringify(tasks.tasksList)));
+tasks.deleteTask(uid);
+console.log(JSON.parse(JSON.stringify(tasks.tasksList)));
 
 console.log(tasks.getTasks());
 console.log(tasks.getTasks('today'));
@@ -23,3 +24,11 @@ console.log(tasks.getTasks('today'));
 projects.newProject('test', 'other stuff', 'default')
 projects.newProject('test', 'other stuff', 'default')
 
+
+
+function displayModal(){
+    const modal = document.getElementById('taskModal');
+ 
+}
+
+//displayModal();
