@@ -9,6 +9,14 @@ const Project = (title, description, type) => {
 
 
 const newProject = (title, description, type) => {
+    const projectsWithTitle = projectList.filter(project => project.title === title);
+    if (projectsWithTitle.length !== 0 ) {
+        console.log('error this is a duplicate');
+        return;
+    }
+
+    console.log('success');
+
     const newProject = Project(title, description, type);
     projectList.push(newProject);
 }

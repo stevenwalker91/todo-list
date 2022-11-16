@@ -30,9 +30,26 @@ const deleteTask = (id) => {
     tasksList.splice(index, 1);
 }
 
+//function to retrieve tasks which takes a filter - defaults on all tasks if filter not provided
+//accepted values are "today" or "project" - when providing project the actual project id should also be provided
+const getTasks = (filter, project) => {
+    
+    if (filter === 'today') {
+        //logic dependent on how dates will be handled - filter statement will need to be updated to look at date
+        return tasksList.filter(task => task.title == 'do other stuff');
+    } 
+
+    if (filter === 'project') {
+        return tasksList.filter(task => task.project === project);
+    }
+
+    return tasksList;
+}
+
 export {
     tasksList,
     newTask,
     editTask,
-    deleteTask
+    deleteTask,
+    getTasks
 }
