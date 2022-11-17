@@ -31,7 +31,7 @@ newTaskBtn.addEventListener('click', () => {
 
 //listen for users closing the modal (they can also use keyboard shortcut)
 const closeModalBtn = document.getElementById('closeModal');
-closeModalBtn.addEventListener('click', () => {
-    display.closeModal();
-})
+closeModalBtn.addEventListener('click', display.closeModal)
 
+const cancelBtn = document.getElementById('cancel-task');
+cancelBtn.addEventListener('click', display.closeModal)
