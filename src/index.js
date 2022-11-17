@@ -1,6 +1,7 @@
 import { projectList } from './projects.js';
 import * as tasks from './tasks.js';
 import * as projects from './projects.js';
+import * as listeners from './listeners.js';
 import './style.css';
 
 
