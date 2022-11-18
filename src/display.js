@@ -86,8 +86,9 @@ const loadTasks = (project) => {
         checkBox.type = 'checkbox';
         taskTitle.appendChild(checkBox);
 
-        const title = document.createElement('span');
+        const title = document.createElement('p');
         title.innerText = task.title;
+        title.classList = 'task-text';
         taskTitle.appendChild(title);
 
         //task controls 

@@ -202,6 +202,7 @@ input:required+label:after{
 .task-title {
     display: flex;
     gap: 10px;
+    width: 60%;
 }
 
 .task-controls {
@@ -253,4 +254,6 @@ button.secondary {
     font-size: 12px;
 }
 
-
+.task-text {
+    margin: 0;
+}
