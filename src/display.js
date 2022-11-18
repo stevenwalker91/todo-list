@@ -5,13 +5,14 @@ import * as tasks from './tasks.js';
 //the relevant tasks
 let currentView = 'inbox';
 
+//some global variables that will be used by multiple functions
 const modal = document.getElementById('taskModal');
 const form = document.getElementById('task-submission');
 const formElements = form.querySelectorAll('input, select, textarea');
 
+
 const displayModal = () => {
     modal.style.display = 'flex';
-    addProjectsToTaskForm();
 }
 
 const closeModal = () => {
@@ -36,7 +37,7 @@ const addProjectsToTaskForm = () => {
     //iterate over the list of projects adding each as an option for the dropdown
     listOfProjects.forEach(project => {
         const element = document.createElement("option");
-        element.value = project.title;
+        element.value = project.id;
         element.innerText = project.title;
         elements.push(element);
     })
@@ -59,15 +60,14 @@ const addFormType = (updateType) => {
 }
 
 //function to load tasks to the UI
-const loadTasks = () => {
+const loadTasks = (project) => {
     const taskContainer = document.getElementById('tasks-container');
-    const listOfTasks = tasks.getTasks(currentView);
+    const listOfTasks = tasks.getTasks(currentView, project);
+
     let elements = [];
 
     //build up the html
     listOfTasks.forEach(task => {
-        console.log(task);
-
         //take title
         const taskElement = document.createElement('div');
         taskElement.classList = 'task';
@@ -105,16 +105,19 @@ const loadTasks = () => {
         const infoBtn = document.createElement('span');
         infoBtn.classList = 'material-symbols-outlined icon-btn task-info';
         infoBtn.innerHTML = 'info';
+        infoBtn.dataset.itemid = task.id;
         controlsContainer.appendChild(infoBtn);
 
         const editBtn = document.createElement('span');
         editBtn.classList = 'material-symbols-outlined icon-btn edit-task';
         editBtn.innerText = 'edit_note';
+        editBtn.dataset.itemid = task.id;
         controlsContainer.appendChild(editBtn);
 
         const deleteBtn = document.createElement('span');
         deleteBtn.classList = 'material-symbols-outlined icon-btn delete-task';
         deleteBtn.innerHTML = 'delete';
+        deleteBtn.dataset.itemid = task.id;
         controlsContainer.appendChild(deleteBtn);
 
         elements.push(taskElement);
@@ -126,13 +129,31 @@ const loadTasks = () => {
 
 const updateCurrentView = (view) => {
     currentView = view;
+
 }
 
 const updateActiveMenuItem = (newActiveMenuItem) => {
     const oldActiveMenuItem = document.querySelector('.active');
     oldActiveMenuItem.classList.toggle('active');
-
     newActiveMenuItem.classList.toggle('active');
+}
+
+const loadProjects = () => {
+    const listOfProjects = projects.projectList;
+    const projectList = document.getElementById('project-list');
+    let elements = [];
+
+    listOfProjects.forEach(project => {
+        const newProject = document.createElement('li');
+        newProject.classList.add('sub-item', 'primary-menu-items');
+        newProject.innerText = project.title;
+        newProject.dataset.projectid = project.id;
+        newProject.dataset.display = 'project';
+        elements.push(newProject);
+    })
+
+    projectList.replaceChildren(...elements);
+
 }
 
 
@@ -145,5 +166,6 @@ export {
     getFormInputs,
     loadTasks,
     updateCurrentView,
-    updateActiveMenuItem
+    updateActiveMenuItem,
+    loadProjects
 }

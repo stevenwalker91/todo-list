@@ -33,7 +33,7 @@ const deleteTask = (id) => {
 //function to retrieve tasks which takes a filter - defaults on all tasks if filter not provided
 //accepted values are "today" or "project" - when providing project the actual project id should also be provided
 const getTasks = (filter, project) => {
-    
+
     if (filter === 'today') {
         //logic dependent on how dates will be handled - filter statement will need to be updated to look at date
         return tasksList.filter(task => task.title == 'do other stuff');

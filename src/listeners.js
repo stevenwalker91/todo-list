@@ -2,6 +2,25 @@
 import * as display from './display.js';
 import * as tasks from './tasks.js';
 
+window.addEventListener('load', () => {
+    display.loadProjects();
+
+    const primaryMenuItems = document.querySelectorAll('.primary-menu-items');
+primaryMenuItems.forEach(item => {
+    item.addEventListener('click', (event) => {
+        display.updateCurrentView(event.target.dataset.display);
+        //check if clicked item has a project ID, in which case pass it to the load tasks function
+        if (event.target.dataset.projectid){
+            display.loadTasks(event.target.dataset.projectid);
+        } else {
+            display.loadTasks();
+        }
+
+        display.updateActiveMenuItem(item);
+    })
+})
+})
+
 //first add any keyboard shortcuts we want to use across the UI
 document.addEventListener('keydown',  (event) => {
     const enteredChar = event.key;
@@ -28,6 +47,7 @@ document.addEventListener('keydown',  (event) => {
 const newTaskBtn = document.getElementById('new-task');
 newTaskBtn.addEventListener('click', () => {
     display.addFormType('new');
+    display.addProjectsToTaskForm();
     display.displayModal();
 })
 
@@ -43,6 +63,7 @@ cancelBtn.addEventListener('click', () => {
 })
 
 
+//process new task submission ans reload the UI with tasks
 const form = document.getElementById('task-submission');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
@@ -60,13 +81,3 @@ form.addEventListener('submit', (event) => {
 })
 
 
-
-const primaryMenuItems = document.querySelectorAll('.menu-items');
-primaryMenuItems.forEach(item => {
-    item.addEventListener('click', (event) => {
-        display.updateCurrentView(event.target.dataset.display);
-        display.loadTasks();
-        display.updateActiveMenuItem(item);
-        console.log(event.target);
-    })
-})
