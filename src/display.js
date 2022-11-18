@@ -114,6 +114,13 @@ const loadTasks = (project) => {
         editBtn.dataset.itemid = task.id;
         controlsContainer.appendChild(editBtn);
 
+        editBtn.addEventListener('click', (event) => {
+            addFormType('edit');
+            addProjectsToTaskForm();
+            loadExistingTaskInForm(event.target.dataset.itemid);
+            displayModal();
+        })
+
         const deleteBtn = document.createElement('span');
         deleteBtn.classList = 'material-symbols-outlined icon-btn delete-task';
         deleteBtn.innerHTML = 'delete';
@@ -156,6 +163,26 @@ const loadProjects = () => {
 
 }
 
+const loadExistingTaskInForm = (id) => {
+    
+    const taskToUpdate = tasks.getSingleTask(id);
+
+    const title = document.getElementById('task-title');
+    const dueDate = document.getElementById('task-due-date');
+    const priority = document.getElementById('priority');
+    const project = document.getElementById('task-project');
+    const description = document.getElementById('task-description');
+    const saveBtn = document.getElementById('create-task');
+
+    title.value = taskToUpdate.title;
+    dueDate.value = taskToUpdate.dueDate;
+    priority.value = taskToUpdate.priority;
+    project.value = taskToUpdate.project;
+    description.value = taskToUpdate.description;
+    saveBtn.dataset.itemid = id;
+
+}
+
 
 export {
     displayModal,
@@ -167,5 +194,6 @@ export {
     loadTasks,
     updateCurrentView,
     updateActiveMenuItem,
-    loadProjects
+    loadProjects,
+    loadExistingTaskInForm
 }

@@ -21,8 +21,7 @@ body {
     background-color: #eeeeee;
     min-height: 100%;
     grid-row:2/3;
-
-
+    box-shadow: 2px 1px 6px 0px rgb(0 0 0 / 25%);
 }
 
 #header {
@@ -213,10 +212,6 @@ input:required+label:after{
 
 }
 
-.due-date {
-    font-size: 13px;
-}
-
 button {
     border-radius: 4px;
     padding: 5px 20px;
@@ -250,5 +245,12 @@ button.secondary {
     
 }
 
+.task:hover {
+    box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
+}
+
+.due-date {
+    font-size: 12px;
+}
 
 

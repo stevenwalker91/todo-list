@@ -15,7 +15,7 @@ const newTask = (title, dueDate, priority, project, description) => {
     tasksList.push(newTask);
 }
 
-const editTask = (id, title, description, dueDate, priority, project) => {
+const editTask = (id, title, dueDate, priority, project, description) => {
     const index = tasksList.findIndex(task => task.id == id);
     tasksList[index].title = title;
     tasksList[index].description = description;
@@ -50,10 +50,16 @@ const getTasks = (filter, project) => {
     return tasksList;
 }
 
+const getSingleTask = (id) => {
+    const taskToReturn = tasksList.filter(task => task.id === id);
+    return taskToReturn[0];
+}
+
 export {
     tasksList,
     newTask,
     editTask,
     deleteTask,
-    getTasks
+    getTasks,
+    getSingleTask
 }

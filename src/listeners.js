@@ -1,4 +1,3 @@
-
 import * as display from './display.js';
 import * as tasks from './tasks.js';
 
@@ -6,19 +5,19 @@ window.addEventListener('load', () => {
     display.loadProjects();
 
     const primaryMenuItems = document.querySelectorAll('.primary-menu-items');
-primaryMenuItems.forEach(item => {
-    item.addEventListener('click', (event) => {
-        display.updateCurrentView(event.target.dataset.display);
-        //check if clicked item has a project ID, in which case pass it to the load tasks function
-        if (event.target.dataset.projectid){
-            display.loadTasks(event.target.dataset.projectid);
-        } else {
-            display.loadTasks();
-        }
+    primaryMenuItems.forEach(item => {
+        item.addEventListener('click', (event) => {
+            display.updateCurrentView(event.target.dataset.display);
+            //check if clicked item has a project ID, in which case pass it to the load tasks function
+            if (event.target.dataset.projectid){
+                display.loadTasks(event.target.dataset.projectid);
+            } else {
+                display.loadTasks();
+            }
 
-        display.updateActiveMenuItem(item);
+            display.updateActiveMenuItem(item);
+        })
     })
-})
 })
 
 //first add any keyboard shortcuts we want to use across the UI
@@ -52,6 +51,7 @@ newTaskBtn.addEventListener('click', () => {
 })
 
 
+
 //listen for users closing the modal (they can also use keyboard shortcut)
 const closeModalBtn = document.getElementById('closeModal');
 closeModalBtn.addEventListener('click', display.closeModal)
@@ -67,17 +67,25 @@ cancelBtn.addEventListener('click', () => {
 const form = document.getElementById('task-submission');
 form.addEventListener('submit', (event) => {
     event.preventDefault();
+    const formInputs = display.getFormInputs();
     
     if (form.dataset.formtype === 'new') {
-        const formInputs = display.getFormInputs();
         //spread operator means i can just through all the inputs in a oner
         tasks.newTask(...formInputs);
-        display.loadTasks();
+    } else if (form.dataset.formtype === 'edit') {
+        //add the id into the form inputs
+        const id = document.getElementById('create-task').dataset.itemid;
+        formInputs.unshift(id);
+        tasks.editTask(...formInputs);
     }
+
+    display.loadTasks();
 
     //now clear down the form
     display.closeModal();
     display.clearModal();
 })
+
+//edit, delete and info add event listener is done in display.js when the ui component is created
 
 
