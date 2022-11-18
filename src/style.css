@@ -89,7 +89,7 @@ hr {
 
 .modal-content{
     display: flex;
-    max-width: 75%;
+    max-width: 700px;
     background-color: white;
     border-radius: 5px;
     gap: 5px;
@@ -99,9 +99,9 @@ hr {
 form {
     display: flex;
     flex-flow: row wrap;
-    gap: 5vw;
+    gap: 3vw;
     padding: 50px 10px;
-    align-items: flex-start;
+    align-items: center;
     margin-left: auto;
     width: 75%;
 }
@@ -119,13 +119,13 @@ label {
     border: none;
     border-bottom: 1px solid #bcb9b9;
     resize: none;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 textarea {
     border: 1px solid #bcb9b9;
     border-radius: 5px;
 }
-
 
 
 input:invalid:not(:placeholder-shown) {
@@ -148,9 +148,11 @@ input:required+label:after{
     flex-flow: column-reverse nowrap;
 }
 
-#closeContainer {
-    
+.btn-group {
+    display: flex;
+    gap: 30px;
 }
+
 
 .close {
     color: #aaaaaa;
@@ -187,6 +189,20 @@ input:required+label:after{
     display: flex;
     align-items: center;
     gap: 20px;
+    border-left: 6px solid gray;
+}
+
+.priority {
+    border-left: 6px solid red;
+}
+
+.low-priority {
+    border-left: 6px solid green;
+}
+
+.task-title {
+    display: flex;
+    gap: 10px;
 }
 
 .task-controls {
@@ -210,7 +226,7 @@ button {
 
 .btn:hover {
     cursor: pointer;
-    color: var(--primary-color);
+    box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
 }
 
 
@@ -227,8 +243,11 @@ button.secondary {
     
 }
 
-button:hover {
-    box-shadow: 1px 1px 6px 0px rgb(0 0 0 / 25%);
+.icon-btn:hover, input[type="checkbox"] {
+    color: var(--primary-color);
+    cursor: pointer;
+
+    
 }
 
 

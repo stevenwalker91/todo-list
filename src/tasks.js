@@ -10,7 +10,7 @@ const Task = (title, description, dueDate, priority, project) => {
 }
 
 //function to call factory to create the tasks
-const newTask = (title, description, dueDate, priority, project) => {
+const newTask = (title, dueDate, priority, project, description) => {
     const newTask = Task(title, description, dueDate, priority, project);
     tasksList.push(newTask);
 }
@@ -41,6 +41,10 @@ const getTasks = (filter, project) => {
 
     if (filter === 'project') {
         return tasksList.filter(task => task.project === project);
+    }
+
+    if (filter === 'important') {
+        return tasksList.filter(task => task.priority === 'high');
     }
 
     return tasksList;

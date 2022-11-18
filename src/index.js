@@ -6,8 +6,8 @@ import './style.css';
 
 
 //stuff below for testing functions
-tasks.newTask('do stuff', 'some more infrmation', 'tomorrow', 'high', 'default');
-tasks.newTask('do other stuff', 'some more infrmation', 'tomorrow', 'high', 'default');
+tasks.newTask('do stuff', '3rd june', 'tomorrow', 'high', 'default');
+tasks.newTask('do other stuff', '12th march', 'tomorrow', 'high', 'default');
 //console log contains eference to object so to view what it showed at specific poit in time, stringify
 console.log(JSON.parse(JSON.stringify(tasks.tasksList)));
 

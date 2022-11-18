@@ -12,16 +12,16 @@
     <div id="app-container">
         <div id="sidebar">
             <ul class="menu-container">
-                <li class="menu-items active">
+                <li class="menu-items active" data-display="inbox">
                     <span class="material-symbols-outlined">home</span>
                     <span>Inbox</span>
 
                 </li>
-                <li class="menu-items">
+                <li class="menu-items" data-display="today">
                     <span class="material-symbols-outlined">calendar_today</span>
                     <span>Today</span>
                 </li>
-                <li class="menu-items">
+                <li class="menu-items" data-display="important">
                     <span class="material-symbols-outlined">priority_high</span>
                     <span>Important</span>
                 </li>
@@ -50,7 +50,7 @@
             <div id="main-inner-container">
                 <div class="modal" id="taskModal">
                     <div class="modal-content" >
-                        <form action="#" id="task-submission">
+                        <form id="task-submission">
                             <div class="input-group">
                                 <input type="text" id="task-title" name="task-title" required>
                                 <label for="task-title">Title</label>
@@ -93,23 +93,30 @@
                 </div>
                 <div id="tasks-container">
                     <div class="task">
-                        <span><input type="checkbox"></span>
-                        <span>I am a task</span>
+                        <div class="task-title">
+                            <span><input type="checkbox"></span>
+                            <span>I am a task</span>
+
+                        </div>
+                        
                         <div class="task-controls">
                             <span class="due-date">Thursday 3rd at 14:00</span>
-                            <span class="material-symbols-outlined btn task-info">info</span>
-                            <span class="material-symbols-outlined btn edit-task">edit_note</span>
-                            <span class="material-symbols-outlined btn delete-task">delete</span>
+                            <span class="material-symbols-outlined icon-btn task-info">info</span>
+                            <span class="material-symbols-outlined icon-btn edit-task">edit_note</span>
+                            <span class="material-symbols-outlined icon-btn delete-task">delete</span>
                         </div>
                     </div>
                     <div class="task">
-                        <span><input type="checkbox"></span>
-                        <span>I am a task that s really long and not very succint. I might have an impact on how this task gets displayed on screen</span>
+                        <div class="task-title">
+                            <span><input type="checkbox"></span>
+                            <span>I am a task that s really long and not very succint. I might have an impact on how this task gets displayed on screen</span>
+                        </div>
+
                         <div class="task-controls">
                             <span class="due-date">Thursday 3rd at 14:00</span>
-                            <span class="material-symbols-outlined btn task-info">info</span>
-                            <span class="material-symbols-outlined btn edit-task">edit_note</span>
-                            <span class="material-symbols-outlined btn delete-task">delete</span>
+                            <span class="material-symbols-outlined icon-btn task-info">info</span>
+                            <span class="material-symbols-outlined icon-btn edit-task">edit_note</span>
+                            <span class="material-symbols-outlined icon-btn delete-task">delete</span>
                         </div>
                     </div>
                 </div>
