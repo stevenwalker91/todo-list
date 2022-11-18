@@ -127,6 +127,11 @@ const loadTasks = (project) => {
         deleteBtn.dataset.itemid = task.id;
         controlsContainer.appendChild(deleteBtn);
 
+        deleteBtn.addEventListener('click', (event) => {
+            tasks.deleteTask(event.target.dataset.itemid);
+            loadTasks();
+        })
+
         elements.push(taskElement);
     })
 
