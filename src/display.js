@@ -128,8 +128,11 @@ const loadTasks = (project) => {
         controlsContainer.appendChild(deleteBtn);
 
         deleteBtn.addEventListener('click', (event) => {
-            tasks.deleteTask(event.target.dataset.itemid);
-            loadTasks();
+            if (confirm(`Are you sure you want to delete this task? \n\n ${task.title}`)) {
+                tasks.deleteTask(event.target.dataset.itemid);
+                loadTasks();
+            }
+
         })
 
         elements.push(taskElement);
