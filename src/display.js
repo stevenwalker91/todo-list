@@ -100,7 +100,12 @@ const loadTasks = (project) => {
 
         const dateContainer = document.createElement('span');
         dateContainer.classList = 'due-date';
-        dateContainer.innerText = _formatDate(task.dueDate);
+        if (task.dueDate === '') {
+            dateContainer.innerText = 'No due date';
+        } else {
+            dateContainer.innerText = _formatDate(task.dueDate);
+        }
+        
         controlsContainer.appendChild(dateContainer);
 
 

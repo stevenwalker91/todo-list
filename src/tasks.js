@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { isToday, isPast } from 'date-fns';
+import { isToday, isPast, isThisWeek } from 'date-fns';
 
 let tasksList = [];
 
@@ -53,7 +53,7 @@ const getTasks = (filter, project) => {
     }
 
     if (filter === 'week') {
-        return tasksList.filter(task => task.priority === 'high');
+        return tasksList.filter(task => isThisWeek(new Date(task.dueDate)));
     }
 
     return tasksList;

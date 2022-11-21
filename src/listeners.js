@@ -25,7 +25,6 @@ window.addEventListener('load', () => {
             }
 
             display.updateActiveMenuItem(item);
-            console.log(event)
             display.updatePageHeader(target.dataset.header);
         })
     })
