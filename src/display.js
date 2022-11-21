@@ -1,5 +1,6 @@
 import * as projects from './projects.js';
 import * as tasks from './tasks.js';
+import { formatDistance } from 'date-fns';
 
 //we'll maintain a variable that shows the current view so we can retrieve
 //the relevant tasks
@@ -99,7 +100,7 @@ const loadTasks = (project) => {
 
         const dateContainer = document.createElement('span');
         dateContainer.classList = 'due-date';
-        dateContainer.innerText = task.dueDate;
+        dateContainer.innerText = _formatDate(task.dueDate);
         controlsContainer.appendChild(dateContainer);
 
 
@@ -190,6 +191,14 @@ const loadExistingTaskInForm = (id) => {
     description.value = taskToUpdate.description;
     saveBtn.dataset.itemid = id;
 
+}
+
+const _formatDate = (date) => {
+    const taskDate = new Date(date);
+    const baseDate = new Date();
+
+
+    return formatDistance(baseDate, taskDate, {addSuffix: true});
 }
 
 

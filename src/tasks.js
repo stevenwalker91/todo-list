@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import { isToday } from 'date-fns';
 
 let tasksList = [];
 
@@ -36,7 +37,9 @@ const getTasks = (filter, project) => {
 
     if (filter === 'today') {
         //logic dependent on how dates will be handled - filter statement will need to be updated to look at date
-        return tasksList.filter(task => task.title == 'do other stuff');
+        
+        return tasksList.filter(task => isToday(new Date(task.dueDate)));
+
     } 
 
     if (filter === 'project') {
