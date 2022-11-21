@@ -1,5 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
-import { isToday } from 'date-fns';
+import { isToday, isPast } from 'date-fns';
 
 let tasksList = [];
 
@@ -33,13 +33,11 @@ const deleteTask = (id) => {
 
 //function to retrieve tasks which takes a filter - defaults on all tasks if filter not provided
 //accepted values are "today" or "project" - when providing project the actual project id should also be provided
+//if creating a new menu item, it should be given a data-display which matches the filter string below
 const getTasks = (filter, project) => {
 
     if (filter === 'today') {
-        //logic dependent on how dates will be handled - filter statement will need to be updated to look at date
-        
         return tasksList.filter(task => isToday(new Date(task.dueDate)));
-
     } 
 
     if (filter === 'project') {
@@ -47,6 +45,14 @@ const getTasks = (filter, project) => {
     }
 
     if (filter === 'important') {
+        return tasksList.filter(task => task.priority === 'high');
+    }
+
+    if (filter === 'expired') {
+        return tasksList.filter(task => isPast(new Date(task.dueDate)));
+    }
+
+    if (filter === 'week') {
         return tasksList.filter(task => task.priority === 'high');
     }
 

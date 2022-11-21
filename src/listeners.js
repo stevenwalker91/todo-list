@@ -7,15 +7,26 @@ window.addEventListener('load', () => {
     const primaryMenuItems = document.querySelectorAll('.primary-menu-items');
     primaryMenuItems.forEach(item => {
         item.addEventListener('click', (event) => {
-            display.updateCurrentView(event.target.dataset.display);
+
+            //we need to account for target potentially being a subitem in which case we should get the parent element which holds data attributes
+            let target;
+            if (event.target.nodeName !== 'LI') {
+                target = event.target.parentElement;
+            } else {
+                target = event.target;
+            }
+
+            display.updateCurrentView(target.dataset.display);
             //check if clicked item has a project ID, in which case pass it to the load tasks function
-            if (event.target.dataset.projectid){
-                display.loadTasks(event.target.dataset.projectid);
+            if (target.dataset.projectid){
+                display.loadTasks(target.dataset.projectid);
             } else {
                 display.loadTasks();
             }
 
             display.updateActiveMenuItem(item);
+            console.log(event)
+            display.updatePageHeader(target.dataset.header);
         })
     })
 })

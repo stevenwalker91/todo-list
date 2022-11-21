@@ -166,6 +166,7 @@ const loadProjects = () => {
         newProject.innerText = project.title;
         newProject.dataset.projectid = project.id;
         newProject.dataset.display = 'project';
+        newProject.dataset.header = project.title;
         elements.push(newProject);
     })
 
@@ -193,12 +194,16 @@ const loadExistingTaskInForm = (id) => {
 
 }
 
+const updatePageHeader = (headerText) => {
+    const headerElement = document.getElementById('page-header');
+    headerElement.innerText = headerText;
+}
+
+
 const _formatDate = (date) => {
     const taskDate = new Date(date);
     const baseDate = new Date();
-
-
-    return formatDistance(baseDate, taskDate, {addSuffix: true});
+    return formatDistance(taskDate, baseDate, {addSuffix: true});
 }
 
 
@@ -213,5 +218,6 @@ export {
     updateCurrentView,
     updateActiveMenuItem,
     loadProjects,
-    loadExistingTaskInForm
+    loadExistingTaskInForm,
+    updatePageHeader
 }
