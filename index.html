@@ -22,8 +22,12 @@
                     <span>Today</span>
                 </li>
                 <li class="menu-items primary-menu-items" data-display="expired" data-header="Expired">
-                    <span class="material-symbols-outlined">calendar_today</span>
+                    <span class="material-symbols-outlined">assignment_late</span>
                     <span>Expired</span>
+                </li>
+                <li class="menu-items primary-menu-items" data-display="week" data-header="This Week">
+                    <span class="material-symbols-outlined">event_upcoming</span>
+                    <span>This Week</span>
                 </li>
                 <li class="menu-items primary-menu-items" data-display="important" data-header="Important">
                     <span class="material-symbols-outlined">priority_high</span>
@@ -62,6 +66,7 @@
                             </div>
                             <div class="input-group">
                                 <select id="priority" name="priority">
+                                    <option selected disabled hidden style='display: none' value=''></option>
                                     <option value="high">High</option>
                                     <option value="medium">Medium</option>
                                     <option value="low">Low</option>
