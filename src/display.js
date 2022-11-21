@@ -1,6 +1,6 @@
 import * as projects from './projects.js';
 import * as tasks from './tasks.js';
-import { formatDistance } from 'date-fns';
+import { formatDistance, format, isThursday } from 'date-fns';
 
 //we'll maintain a variable that shows the current view so we can retrieve
 //the relevant tasks
@@ -110,9 +110,13 @@ const loadTasks = (project) => {
 
 
         const infoBtn = document.createElement('span');
+        const toolTip = document.createElement('span');
+        toolTip.innerText = task.description;
+        toolTip.classList.add('tooltiptext');
         infoBtn.classList = 'material-symbols-outlined icon-btn task-info';
         infoBtn.innerHTML = 'info';
         infoBtn.dataset.itemid = task.id;
+        infoBtn.appendChild(toolTip);
         controlsContainer.appendChild(infoBtn);
 
         const editBtn = document.createElement('span');
@@ -189,9 +193,12 @@ const loadExistingTaskInForm = (id) => {
     const project = document.getElementById('task-project');
     const description = document.getElementById('task-description');
     const saveBtn = document.getElementById('create-task');
+   
+    //format the date to put it back in the form
+    const formatDate = format(taskToUpdate.dueDate, "yyyy-MM-dd'T'HH:mm");
 
     title.value = taskToUpdate.title;
-    dueDate.value = taskToUpdate.dueDate;
+    dueDate.value = formatDate;
     priority.value = taskToUpdate.priority;
     project.value = taskToUpdate.project;
     description.value = taskToUpdate.description;
@@ -211,6 +218,14 @@ const _formatDate = (date) => {
     return formatDistance(taskDate, baseDate, {addSuffix: true});
 }
 
+const handelAccordion = () => {
+    const listProjects = document.getElementById('project-list');
+    const accordionHeader = document.getElementById('accordion-header');
+    listProjects.classList.toggle('hide-accordion');
+    accordionHeader.classList.toggle('opened');
+
+}
+
 
 export {
     displayModal,
@@ -224,5 +239,6 @@ export {
     updateActiveMenuItem,
     loadProjects,
     loadExistingTaskInForm,
-    updatePageHeader
+    updatePageHeader,
+    handelAccordion
 }

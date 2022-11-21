@@ -96,6 +96,9 @@ form.addEventListener('submit', (event) => {
     display.clearModal();
 })
 
+const accordionBtn = document.getElementById('accordion-header');
+accordionBtn.addEventListener('click', display.handelAccordion);
+
 //edit, delete and info add event listener is done in display.js when the ui component is created
 
 
