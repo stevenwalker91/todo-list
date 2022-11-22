@@ -282,10 +282,22 @@ const _formatDate = (date) => {
 }
 
 const handleAccordion = () => {
+
+    
     const listProjects = document.getElementById('project-list');
     const accordionHeader = document.getElementById('accordion-header');
+
+    const icon = document.getElementById('expand-icon');
+
+    if ( accordionHeader.classList.contains('opened')) {
+        icon.innerText = 'chevron_right';
+    } else {
+        icon.innerText = 'expand_more';
+    }
     listProjects.classList.toggle('hide-accordion');
     accordionHeader.classList.toggle('opened');
+
+
 
 }
 
@@ -294,7 +306,8 @@ const displayNewProjectDialog = () => {
     const newProjectDialog = document.getElementById('new-project');
 
     newProjectBtn.classList.toggle('hide-btn');
-    newProjectDialog.classList.toggle('show-dialog')
+    newProjectDialog.classList.toggle('show-dialog');
+
 
 }
 
