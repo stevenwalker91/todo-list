@@ -16,17 +16,18 @@ const months = new Date(today.setMonth(today.getMonth()+6));
 
 
 //stuff below for testing functions
-tasks.newTask('do stuff', fiveMins, 'high', 'High', 'default');
-tasks.newTask('do other stuff', tomorrow, 'low', 'high', 'default');
-tasks.newTask('an old tsk that needs done', expired, 'medium', 'high', 'default');
-tasks.newTask('it\'s my birthday, bake a cake', months, 'medium', 'high', 'default');
+tasks.newTask('Get down to the shops', fiveMins, 'high', 'High', 'Need to get stuff for dinner. Make sure to also include milk and coffee');
+tasks.newTask('Fix the bug with dates rendering in to-do app', tomorrow, 'low', 'low', 'Which one? Probably best to fix them all.');
+tasks.newTask('Add in ability to actually update a task to complete', expired, 'medium', 'high', 'Need to update the model and also apply a css class so they visually look done');
+tasks.newTask('Bake a birthday cake', months, 'medium', 'high', 'Dont worry, its a while off yet');
 
 
-projects.newProject('Work', 'other stuff', 'default')
 projects.newProject('Personal', 'other stuff', 'default')
+projects.newProject('Work', 'other stuff', 'default')
 
 //dynamically generated takss will have a project which is defined by the UUID - bodge this for the demo
 tasks.tasksList[0].project = projects.projectList[0].id;
+tasks.tasksList[2].completed = true;
 
 
 display.loadTasks();

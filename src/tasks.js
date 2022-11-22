@@ -23,7 +23,11 @@ const editTask = (id, title, dueDate, priority, project, description) => {
     tasksList[index].dueDate = dueDate;
     tasksList[index].priority = priority;
     tasksList[index].project = project;
+}
 
+const updateTaskStatus = (id, complete) => {
+    const index = tasksList.findIndex(task => task.id == id);
+    tasksList[index].completed = complete;
 }
 
 const deleteTask = (id) => {
@@ -36,27 +40,36 @@ const deleteTask = (id) => {
 //if creating a new menu item, it should be given a data-display which matches the filter string below
 const getTasks = (filter, project) => {
 
+    const sortOrder = (a) => {
+        if (a.completed === true ) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+
     if (filter === 'today') {
-        return tasksList.filter(task => isToday(new Date(task.dueDate)));
+        return tasksList.filter(task => isToday(new Date(task.dueDate))).sort(sortOrder);
     } 
 
+
     if (filter === 'project') {
-        return tasksList.filter(task => task.project === project);
+        return tasksList.filter(task => task.project === project).sort(sortOrder);
     }
 
     if (filter === 'important') {
-        return tasksList.filter(task => task.priority === 'high');
+        return tasksList.filter(task => task.priority === 'high').sort(sortOrder);
     }
 
     if (filter === 'expired') {
-        return tasksList.filter(task => isPast(new Date(task.dueDate)));
+        return tasksList.filter(task => isPast(new Date(task.dueDate))).sort(sortOrder);
     }
 
     if (filter === 'week') {
-        return tasksList.filter(task => isThisWeek(new Date(task.dueDate)));
+        return tasksList.filter(task => isThisWeek(new Date(task.dueDate))).sort(sortOrder);
     }
 
-    return tasksList;
+    return tasksList.sort(sortOrder);
 }
 
 const getSingleTask = (id) => {
@@ -70,5 +83,6 @@ export {
     editTask,
     deleteTask,
     getTasks,
-    getSingleTask
+    getSingleTask,
+    updateTaskStatus
 }

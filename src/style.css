@@ -318,3 +318,11 @@ button.secondary {
     content: '\25B2'!important;
 }
 
+.completed>.task-title>.task-text {
+    text-decoration: line-through;
+}
+
+.completed {
+    font-style: italic;
+    color: grey;
+}

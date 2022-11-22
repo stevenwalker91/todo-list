@@ -87,6 +87,23 @@ const loadTasks = (project) => {
         checkBox.type = 'checkbox';
         taskTitle.appendChild(checkBox);
 
+        //check status of task and add appropriate styling if complete
+        if (task.completed === true) {
+            taskElement.classList.toggle('completed');
+        }
+
+        //add an event listener so it can later be updated
+        checkBox.addEventListener('change', (event) => {
+            if (event.target.checked) {
+                tasks.updateTaskStatus(task.id, true);
+            } else {
+                tasks.updateTaskStatus(task.id, false);
+            }
+            
+            taskElement.classList.toggle('completed');
+            //toggle the complete class
+        })
+
         const title = document.createElement('p');
         title.innerText = task.title;
         title.classList = 'task-text';
@@ -103,8 +120,9 @@ const loadTasks = (project) => {
         if (task.dueDate === '') {
             dateContainer.innerText = 'No due date';
         } else {
-            dateContainer.innerText = _formatDate(task.dueDate);
+            dateContainer.innerText = `due ${_formatDate(task.dueDate)}`;
         }
+        dateContainer.setAttribute('title', format(task.dueDate, 'dd/MM/yyyy HH:mm'))
         
         controlsContainer.appendChild(dateContainer);
 
@@ -218,7 +236,7 @@ const _formatDate = (date) => {
     return formatDistance(taskDate, baseDate, {addSuffix: true});
 }
 
-const handelAccordion = () => {
+const handleAccordion = () => {
     const listProjects = document.getElementById('project-list');
     const accordionHeader = document.getElementById('accordion-header');
     listProjects.classList.toggle('hide-accordion');
@@ -240,5 +258,5 @@ export {
     loadProjects,
     loadExistingTaskInForm,
     updatePageHeader,
-    handelAccordion
+    handleAccordion
 }
