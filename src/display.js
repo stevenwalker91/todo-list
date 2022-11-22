@@ -214,10 +214,13 @@ const loadExistingTaskInForm = (id) => {
     const saveBtn = document.getElementById('create-task');
    
     //format the date to put it back in the form
-    const formatDate = format(taskToUpdate.dueDate, "yyyy-MM-dd'T'HH:mm");
+    console.log(`stored due date ${taskToUpdate.dueDate}`)
+    const iso = parseISO(taskToUpdate.dueDate);
+    console.log(`iso date ${iso}`);
+    //const formatDate = format(iso.dueDate, "yyyy-MM-dd'T'HH:mm");
 
     title.value = taskToUpdate.title;
-    dueDate.value = formatDate;
+    dueDate.value = taskToUpdate.dueDate;
     priority.value = taskToUpdate.priority;
     project.value = taskToUpdate.project;
     description.value = taskToUpdate.description;

@@ -82,6 +82,7 @@ form.addEventListener('submit', (event) => {
     if (form.dataset.formtype === 'new') {
         //spread operator means i can just through all the inputs in a oner
         tasks.newTask(...formInputs);
+        console.log(formInputs)
     } else if (form.dataset.formtype === 'edit') {
         //add the id into the form inputs
         const id = document.getElementById('create-task').dataset.itemid;
