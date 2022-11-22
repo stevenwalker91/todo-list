@@ -90,6 +90,7 @@ const loadTasks = (project) => {
         //check status of task and add appropriate styling if complete
         if (task.completed === true) {
             taskElement.classList.toggle('completed');
+            checkBox.checked = true;
         }
 
         //add an event listener so it can later be updated
