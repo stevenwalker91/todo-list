@@ -16,12 +16,13 @@ Some of the key things to achieve in this project:
 
 ## Features & Functionality
 
-- [ ] A user can create a task
-- [ ] A user can assign a due date, priority, notes and checklist to a task
+- [x] A user can create a task
+- [x] A user can assign a due date, priority, notes to a task
 - [ ] A user can create a project, or collection of tasks
-- [ ] A user can assign a task to a project
-- [ ] A user can edit or delete a task
-- [ ] A user can see their upcoming or expired tasks
+- [x] A user can assign a task to a project
+- [x] A user can edit or delete a task
+- [x] A user can see their upcoming or expired tasks
+- [x] A user can have previously submitted tasks loaded from local storage
 
 
 ### Optional Features
