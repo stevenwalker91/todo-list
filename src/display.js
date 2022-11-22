@@ -1,6 +1,6 @@
 import * as projects from './projects.js';
 import * as tasks from './tasks.js';
-import { formatDistance, format, isThursday } from 'date-fns';
+import { formatDistance, format, parseISO } from 'date-fns';
 
 //we'll maintain a variable that shows the current view so we can retrieve
 //the relevant tasks
@@ -123,7 +123,7 @@ const loadTasks = (project) => {
         } else {
             dateContainer.innerText = `due ${_formatDate(task.dueDate)}`;
         }
-        dateContainer.setAttribute('title', format(task.dueDate, 'dd/MM/yyyy HH:mm'))
+        dateContainer.setAttribute('title', parseISO(task.dueDate));
         
         controlsContainer.appendChild(dateContainer);
 

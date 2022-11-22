@@ -18,6 +18,9 @@ const newProject = (title, description, type) => {
 
     const newProject = Project(title, description, type);
     projectList.push(newProject);
+
+    //add to localstorage
+    localStorage.setItem('projectList', JSON.stringify(projectList));
 }
 
 const editProject = (id, title, description, type) => {
@@ -25,11 +28,17 @@ const editProject = (id, title, description, type) => {
     projectList[index].title = title;
     projectList[index].description = description;
     projectList[index].type = type;
+
+     //add to localstorage
+     localStorage.setItem('projectList', JSON.stringify(projectList));
 }
 
 const deleteProject = (id) => {
     const index = projectList.findIndex(project => project.id === id);
     projectList.splice(index, 1);
+
+     //add to localstorage
+     localStorage.setItem('projectList', JSON.stringify(projectList));
 }
 
 
