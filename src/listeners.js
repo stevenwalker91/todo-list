@@ -34,6 +34,21 @@ window.addEventListener('load', () => {
 document.addEventListener('keydown',  (event) => {
     const enteredChar = event.key;
 
+    //this is for allowing the user to create a new project hwen hitting enter
+    if (event.target.id === 'projectNameInput') {
+        switch(enteredChar) {
+            case 'Escape':
+                display.displayNewProjectDialog();
+                break;
+            case 'Enter':
+                display.displayNewProjectDialog();
+                display.createNewProject();
+                break;
+        }
+    }
+        
+
+
     //if the user is typing in an input field, stop the function
     if (event.target.tagName == "INPUT" && enteredChar != 'Escape') {
         return;
@@ -82,7 +97,6 @@ form.addEventListener('submit', (event) => {
     if (form.dataset.formtype === 'new') {
         //spread operator means i can just through all the inputs in a oner
         tasks.newTask(...formInputs);
-        console.log(formInputs)
     } else if (form.dataset.formtype === 'edit') {
         //add the id into the form inputs
         const id = document.getElementById('create-task').dataset.itemid;
@@ -99,6 +113,22 @@ form.addEventListener('submit', (event) => {
 
 const accordionBtn = document.getElementById('accordion-header');
 accordionBtn.addEventListener('click', display.handleAccordion);
+
+//when clicking new project, show the dialog
+const newProjectBtn = document.getElementById('add-project');
+newProjectBtn.addEventListener('click', display.displayNewProjectDialog);
+
+//when clicking cancel, hide the dialog
+const cancelProjectBtn = document.getElementById('cancel-project');
+cancelProjectBtn.addEventListener('click', display.displayNewProjectDialog);
+
+//when clicking confirm, create new project
+const confirmNewProject = document.getElementById('submitProject');
+confirmNewProject.addEventListener('click', (event) => {
+    display.displayNewProjectDialog();
+    display.createNewProject();
+
+})
 
 //edit, delete and info add event listener is done in display.js when the ui component is created
 

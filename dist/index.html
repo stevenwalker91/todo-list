@@ -12,12 +12,12 @@
     <div id="app-container">
         <div id="sidebar">
             <ul class="menu-container">
-                <li class="menu-items primary-menu-items active" data-display="inbox" data-header="Inbox">
+                <li id="inbox" class="menu-items primary-menu-items active" data-display="inbox" data-header="Inbox">
                     <span class="material-symbols-outlined">home</span>
                     <span>Inbox</span>
 
                 </li>
-                <li class="menu-items primary-menu-items" data-display="today" data-header="Today">
+                <li id="today" class="menu-items primary-menu-items" data-display="today" data-header="Today">
                     <span class="material-symbols-outlined">calendar_today</span>
                     <span>Today</span>
                 </li>
@@ -43,6 +43,17 @@
                 <ul id="project-list" class="menu-container">
                 </ul>
             </ul>
+            <hr>
+            <li id="add-project" class="menu-items">
+                <span>Add project</span>
+                <span class="material-symbols-outlined delete-project icon-btn">add</span>
+            </li>
+            <div id="new-project" class="new-project">
+                <input id="projectNameInput" type="text">
+                <span id="submitProject" class="material-symbols-outlined icon-btn">check_circle</span>
+                <span id="cancel-project"class="material-symbols-outlined icon-btn">cancel</span>
+            </div>
+            
 
            
         </div>

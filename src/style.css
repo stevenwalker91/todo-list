@@ -300,29 +300,72 @@ button.secondary {
 }
 
 #project-list {
-    max-height: 100px;
+    max-height: 1000px;
     overflow: hidden;
     transition: max-height 0.5s;
 }
 
 #accordion-header:after {
-    content: '\25BC';
-    color: #777;
+    content: '\25BA';
     font-weight: bold;
     float: right;
     margin-left: auto;
 
+
 }
 
 .opened:after {
-    content: '\25B2'!important;
+    content: '\25BC'!important;
+    
 }
 
 .completed>.task-title>.task-text {
     text-decoration: line-through;
+
 }
 
 .completed {
     font-style: italic;
     color: grey;
 }
+
+.delete-project {
+    margin-left: auto;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.new-project {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding-top:15px;
+}
+
+.hide-btn {
+    display: none;
+}
+
+.show-dialog {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    padding-top:15px;
+}
+
+#projectNameInput {
+    border: 1px solid gray;
+    outline: 0;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+
+#projectNameInput:focus {
+    border: 1px solid var(--primary-color);
+    outline: 0;
+
+}
+

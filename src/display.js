@@ -1,6 +1,7 @@
 import * as projects from './projects.js';
 import * as tasks from './tasks.js';
-import { formatDistance, format, parseISO } from 'date-fns';
+import { formatDistance, parseISO } from 'date-fns';
+
 
 //we'll maintain a variable that shows the current view so we can retrieve
 //the relevant tasks
@@ -179,7 +180,10 @@ const updateCurrentView = (view) => {
 
 const updateActiveMenuItem = (newActiveMenuItem) => {
     const oldActiveMenuItem = document.querySelector('.active');
-    oldActiveMenuItem.classList.toggle('active');
+    if (oldActiveMenuItem) {
+        oldActiveMenuItem.classList.toggle('active');
+    }
+    
     newActiveMenuItem.classList.toggle('active');
 }
 
@@ -190,11 +194,54 @@ const loadProjects = () => {
 
     listOfProjects.forEach(project => {
         const newProject = document.createElement('li');
-        newProject.classList.add('sub-item', 'primary-menu-items');
-        newProject.innerText = project.title;
+        newProject.classList.add('sub-item', 'primary-menu-items', 'menu-items');
         newProject.dataset.projectid = project.id;
         newProject.dataset.display = 'project';
         newProject.dataset.header = project.title;
+
+        newProject.addEventListener('click', (event) => {
+
+            //we need to account for target potentially being a subitem in which case we should get the parent element which holds data attributes
+            let target;
+            if (event.target.nodeName !== 'LI') {
+                target = event.target.parentElement;
+            } else {
+                target = event.target;
+            }
+
+            updateCurrentView(target.dataset.display);
+            //check if clicked item has a project ID, in which case pass it to the load tasks function
+            if (target.dataset.projectid){
+                loadTasks(target.dataset.projectid);
+            } else {
+                loadTasks();
+            }
+
+            updateActiveMenuItem(newProject);
+            updatePageHeader(target.dataset.header);
+        })
+
+        const titleSpan = document.createElement('span');
+        titleSpan.innerText = project.title;
+
+        const crossSpan = document.createElement('span');
+        crossSpan.classList = 'material-symbols-outlined delete-project icon-btn';
+        crossSpan.innerText = 'close';
+        newProject.appendChild(titleSpan);
+        newProject.appendChild(crossSpan);
+
+        crossSpan.addEventListener('click', (event) => {
+            event.stopPropagation();
+
+            projects.deleteProject(event.target.parentElement.dataset.projectid);
+
+            updateCurrentView('inbox');
+            loadTasks();
+            updateActiveMenuItem(document.getElementById('inbox'));
+            updatePageHeader('Inbox');
+            loadProjects();
+        })
+        
         elements.push(newProject);
     })
 
@@ -212,12 +259,6 @@ const loadExistingTaskInForm = (id) => {
     const project = document.getElementById('task-project');
     const description = document.getElementById('task-description');
     const saveBtn = document.getElementById('create-task');
-   
-    //format the date to put it back in the form
-    console.log(`stored due date ${taskToUpdate.dueDate}`)
-    const iso = parseISO(taskToUpdate.dueDate);
-    console.log(`iso date ${iso}`);
-    //const formatDate = format(iso.dueDate, "yyyy-MM-dd'T'HH:mm");
 
     title.value = taskToUpdate.title;
     dueDate.value = taskToUpdate.dueDate;
@@ -248,6 +289,21 @@ const handleAccordion = () => {
 
 }
 
+const displayNewProjectDialog = () => {
+    const newProjectBtn = document.getElementById('add-project');
+    const newProjectDialog = document.getElementById('new-project');
+
+    newProjectBtn.classList.toggle('hide-btn');
+    newProjectDialog.classList.toggle('show-dialog')
+
+}
+
+const createNewProject = () => {
+    const inputProject = document.getElementById('projectNameInput');
+    projects.newProject(inputProject.value);
+    loadProjects();
+    inputProject.value = '';
+}
 
 export {
     displayModal,
@@ -262,5 +318,7 @@ export {
     loadProjects,
     loadExistingTaskInForm,
     updatePageHeader,
-    handleAccordion
+    handleAccordion,
+    displayNewProjectDialog,
+    createNewProject
 }
