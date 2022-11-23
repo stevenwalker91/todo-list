@@ -1,5 +1,5 @@
-import { v4 as uuidv4 } from 'uuid';
-import { isToday, isPast, isThisWeek } from 'date-fns';
+import { v4 as uuidv4 } from "uuid";
+import { isToday, isPast, isThisWeek } from "date-fns";
 
 const tasksList = [];
 
@@ -8,7 +8,13 @@ const Task = (title, description, dueDate, priority, project) => {
   const id = uuidv4();
   const completed = false;
   return {
-    id, title, description, dueDate, priority, project, completed,
+    id,
+    title,
+    description,
+    dueDate,
+    priority,
+    project,
+    completed,
   };
 };
 
@@ -18,7 +24,7 @@ const newTask = (title, dueDate, priority, project, description) => {
   tasksList.push(task);
 
   // send the tasks to local storage
-  localStorage.setItem('taskList', JSON.stringify(tasksList));
+  localStorage.setItem("taskList", JSON.stringify(tasksList));
 };
 
 const editTask = (id, title, dueDate, priority, project, description) => {
@@ -30,7 +36,7 @@ const editTask = (id, title, dueDate, priority, project, description) => {
   tasksList[index].project = project;
 
   // send the tasks to local storage
-  localStorage.setItem('taskList', JSON.stringify(tasksList));
+  localStorage.setItem("taskList", JSON.stringify(tasksList));
 };
 
 const updateTaskStatus = (id, complete) => {
@@ -38,7 +44,7 @@ const updateTaskStatus = (id, complete) => {
   tasksList[index].completed = complete;
 
   // send the tasks to local storage
-  localStorage.setItem('taskList', JSON.stringify(tasksList));
+  localStorage.setItem("taskList", JSON.stringify(tasksList));
 };
 
 const deleteTask = (id) => {
@@ -46,7 +52,7 @@ const deleteTask = (id) => {
   tasksList.splice(index, 1);
 
   // send the tasks to local storage
-  localStorage.setItem('taskList', JSON.stringify(tasksList));
+  localStorage.setItem("taskList", JSON.stringify(tasksList));
 };
 
 // function to retrieve tasks which takes a filter - defaults on all tasks if filter not provided
@@ -60,24 +66,34 @@ const getTasks = (filter, project) => {
     return -1;
   };
 
-  if (filter === 'today') {
-    return tasksList.filter((task) => isToday(new Date(task.dueDate))).sort(sortByUncompleted);
+  if (filter === "today") {
+    return tasksList
+      .filter((task) => isToday(new Date(task.dueDate)))
+      .sort(sortByUncompleted);
   }
 
-  if (filter === 'project') {
-    return tasksList.filter((task) => task.project === project).sort(sortByUncompleted);
+  if (filter === "project") {
+    return tasksList
+      .filter((task) => task.project === project)
+      .sort(sortByUncompleted);
   }
 
-  if (filter === 'important') {
-    return tasksList.filter((task) => task.priority === 'high').sort(sortByUncompleted);
+  if (filter === "important") {
+    return tasksList
+      .filter((task) => task.priority === "high")
+      .sort(sortByUncompleted);
   }
 
-  if (filter === 'expired') {
-    return tasksList.filter((task) => isPast(new Date(task.dueDate))).sort(sortByUncompleted);
+  if (filter === "expired") {
+    return tasksList
+      .filter((task) => isPast(new Date(task.dueDate)))
+      .sort(sortByUncompleted);
   }
 
-  if (filter === 'week') {
-    return tasksList.filter((task) => isThisWeek(new Date(task.dueDate))).sort(sortByUncompleted);
+  if (filter === "week") {
+    return tasksList
+      .filter((task) => isThisWeek(new Date(task.dueDate)))
+      .sort(sortByUncompleted);
   }
 
   return tasksList.sort(sortByUncompleted);

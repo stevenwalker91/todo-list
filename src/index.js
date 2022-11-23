@@ -1,8 +1,8 @@
 import * as tasks from "./tasks";
 import * as projects from "./projects";
-import * as listeners from "./listeners";
 import "./style.css";
 import * as display from "./display";
+import * as listeners from "./listeners";
 
 const itemsInStorage = JSON.parse(localStorage.getItem("taskList"));
 const projectsInStorage = JSON.parse(localStorage.getItem("projectList"));
