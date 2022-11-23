@@ -353,6 +353,43 @@ button.secondary {
 #projectNameInput:focus {
     border: 1px solid var(--primary-color);
     outline: 0;
+}
+
+#menu-icon {
+    font-size: 40px;
+    padding: 15px;
+    display: none;
+    cursor: pointer;
+    
+}
+
+
+@media (max-width: 790px) {
+    #app-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: 130px 1fr;
+    }
+    
+    .sidebar {
+        display: none;
+    }
+
+    #menu-icon {
+        display: inline-block;
+    }
+  }
+
+#header {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.mobile-nav {
+    display: block;
 
 }
 
+.hide {
+    display: none;
+}

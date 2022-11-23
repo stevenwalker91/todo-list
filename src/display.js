@@ -1,42 +1,42 @@
-import { formatDistance, parseISO } from 'date-fns';
-import * as projects from './projects';
-import * as tasks from './tasks';
+import { formatDistance, parseISO } from "date-fns";
+import * as projects from "./projects";
+import * as tasks from "./tasks";
 
 //  we'll maintain a variable that shows the current view so we can retrieve
 //  the relevant tasks
-let currentView = 'inbox';
+let currentView = "inbox";
 
 //  some global variables that will be used by multiple functions
-const modal = document.getElementById('taskModal');
-const form = document.getElementById('task-submission');
-const formElements = form.querySelectorAll('input, select, textarea');
+const modal = document.getElementById("taskModal");
+const form = document.getElementById("task-submission");
+const formElements = form.querySelectorAll("input, select, textarea");
 
 const displayModal = () => {
-  modal.style.display = 'flex';
+  modal.style.display = "flex";
 };
 
 const closeModal = () => {
-  modal.style.display = 'none';
+  modal.style.display = "none";
 };
 
 //  clear down the modal forms for if its submitted or user explicitly cancels
 const clearModal = () => {
   formElements.forEach((element) => {
-    element.value = '';
+    element.value = "";
   });
 };
 
 const addProjectsToTaskForm = () => {
-  const projectDropdown = document.getElementById('task-project');
+  const projectDropdown = document.getElementById("task-project");
   const listOfProjects = projects.projectList;
   const elements = [];
   // add a blank value to the list so user doesn't have to select a project
-  const blankElement = document.createElement('option');
+  const blankElement = document.createElement("option");
   elements.push(blankElement);
 
   // iterate over the list of projects adding each as an option for the dropdown
   listOfProjects.forEach((project) => {
-    const element = document.createElement('option');
+    const element = document.createElement("option");
     element.value = project.id;
     element.innerText = project.title;
     elements.push(element);
@@ -60,7 +60,7 @@ const addFormType = (updateType) => {
 };
 
 const updatePageHeader = (headerText) => {
-  const headerElement = document.getElementById('page-header');
+  const headerElement = document.getElementById("page-header");
   headerElement.innerText = headerText;
 };
 
@@ -71,37 +71,37 @@ const formatDate = (date) => {
 };
 
 const handleAccordion = () => {
-  const listProjects = document.getElementById('project-list');
-  const accordionHeader = document.getElementById('accordion-header');
+  const listProjects = document.getElementById("project-list");
+  const accordionHeader = document.getElementById("accordion-header");
 
-  const icon = document.getElementById('expand-icon');
+  const icon = document.getElementById("expand-icon");
 
-  if (accordionHeader.classList.contains('opened')) {
-    icon.innerText = 'chevron_right';
+  if (accordionHeader.classList.contains("opened")) {
+    icon.innerText = "chevron_right";
   } else {
-    icon.innerText = 'expand_more';
+    icon.innerText = "expand_more";
   }
-  listProjects.classList.toggle('hide-accordion');
-  accordionHeader.classList.toggle('opened');
+  listProjects.classList.toggle("hide-accordion");
+  accordionHeader.classList.toggle("opened");
 };
 
 const displayNewProjectDialog = () => {
-  const newProjectBtn = document.getElementById('add-project');
-  const newProjectDialog = document.getElementById('new-project');
+  const newProjectBtn = document.getElementById("add-project");
+  const newProjectDialog = document.getElementById("new-project");
 
-  newProjectBtn.classList.toggle('hide-btn');
-  newProjectDialog.classList.toggle('show-dialog');
+  newProjectBtn.classList.toggle("hide-btn");
+  newProjectDialog.classList.toggle("show-dialog");
 };
 
 const loadExistingTaskInForm = (id) => {
   const taskToUpdate = tasks.getSingleTask(id);
 
-  const title = document.getElementById('task-title');
-  const dueDate = document.getElementById('task-due-date');
-  const priority = document.getElementById('priority');
-  const project = document.getElementById('task-project');
-  const description = document.getElementById('task-description');
-  const saveBtn = document.getElementById('create-task');
+  const title = document.getElementById("task-title");
+  const dueDate = document.getElementById("task-due-date");
+  const priority = document.getElementById("priority");
+  const project = document.getElementById("task-project");
+  const description = document.getElementById("task-description");
+  const saveBtn = document.getElementById("create-task");
 
   title.value = taskToUpdate.title;
   dueDate.value = taskToUpdate.dueDate;
@@ -111,10 +111,9 @@ const loadExistingTaskInForm = (id) => {
   saveBtn.dataset.itemid = id;
 };
 
-
 // function to load tasks to the UI
 const loadTasks = (project) => {
-  const taskContainer = document.getElementById('tasks-container');
+  const taskContainer = document.getElementById("tasks-container");
   const listOfTasks = tasks.getTasks(currentView, project);
 
   const elements = [];
@@ -122,94 +121,98 @@ const loadTasks = (project) => {
   // build up the html
   listOfTasks.forEach((task) => {
     // take title
-    const taskElement = document.createElement('div');
-    taskElement.classList = 'task';
-    if (task.priority === 'high') {
-      taskElement.classList += ' priority';
+    const taskElement = document.createElement("div");
+    taskElement.classList = "task";
+    if (task.priority === "high") {
+      taskElement.classList += " priority";
     }
-    if (task.priority === 'low') {
-      taskElement.classList += ' low-priority';
+    if (task.priority === "low") {
+      taskElement.classList += " low-priority";
     }
 
-    const taskTitle = document.createElement('div');
-    taskTitle.classList = 'task-title';
+    const taskTitle = document.createElement("div");
+    taskTitle.classList = "task-title";
     taskElement.appendChild(taskTitle);
 
-    const checkBox = document.createElement('input');
-    checkBox.type = 'checkbox';
+    const checkBox = document.createElement("input");
+    checkBox.type = "checkbox";
     taskTitle.appendChild(checkBox);
 
     // check status of task and add appropriate styling if complete
     if (task.completed === true) {
-      taskElement.classList.toggle('completed');
+      taskElement.classList.toggle("completed");
       checkBox.checked = true;
     }
 
     // add an event listener so it can later be updated
-    checkBox.addEventListener('change', (event) => {
+    checkBox.addEventListener("change", (event) => {
       if (event.target.checked) {
         tasks.updateTaskStatus(task.id, true);
       } else {
         tasks.updateTaskStatus(task.id, false);
       }
 
-      taskElement.classList.toggle('completed');
+      taskElement.classList.toggle("completed");
       // toggle the complete class
     });
 
-    const title = document.createElement('p');
+    const title = document.createElement("p");
     title.innerText = task.title;
-    title.classList = 'task-text';
+    title.classList = "task-text";
     taskTitle.appendChild(title);
 
     // task controls
 
-    const controlsContainer = document.createElement('div');
-    controlsContainer.classList = 'task-controls';
+    const controlsContainer = document.createElement("div");
+    controlsContainer.classList = "task-controls";
     taskElement.appendChild(controlsContainer);
 
-    const dateContainer = document.createElement('span');
-    dateContainer.classList = 'due-date';
-    if (task.dueDate === '') {
-      dateContainer.innerText = 'No due date';
+    const dateContainer = document.createElement("span");
+    dateContainer.classList = "due-date";
+    if (task.dueDate === "") {
+      dateContainer.innerText = "No due date";
     } else {
       dateContainer.innerText = `due ${formatDate(task.dueDate)}`;
     }
-    dateContainer.setAttribute('title', parseISO(task.dueDate));
+    dateContainer.setAttribute("title", parseISO(task.dueDate));
 
     controlsContainer.appendChild(dateContainer);
 
-    const infoBtn = document.createElement('span');
-    const toolTip = document.createElement('span');
+    const infoBtn = document.createElement("span");
+    const toolTip = document.createElement("span");
     toolTip.innerText = task.description;
-    toolTip.classList.add('tooltiptext');
-    infoBtn.classList = 'material-symbols-outlined icon-btn task-info';
-    infoBtn.innerHTML = 'info';
+    toolTip.classList.add("tooltiptext");
+    infoBtn.classList = "material-symbols-outlined icon-btn task-info";
+    infoBtn.innerHTML = "info";
     infoBtn.dataset.itemid = task.id;
     infoBtn.appendChild(toolTip);
     controlsContainer.appendChild(infoBtn);
 
-    const editBtn = document.createElement('span');
-    editBtn.classList = 'material-symbols-outlined icon-btn edit-task';
-    editBtn.innerText = 'edit_note';
+    const editBtn = document.createElement("span");
+    editBtn.classList = "material-symbols-outlined icon-btn edit-task";
+    editBtn.innerText = "edit_note";
     editBtn.dataset.itemid = task.id;
     controlsContainer.appendChild(editBtn);
 
-    editBtn.addEventListener('click', (event) => {
-      addFormType('edit');
+    editBtn.addEventListener("click", (event) => {
+      addFormType("edit");
       addProjectsToTaskForm();
       loadExistingTaskInForm(event.target.dataset.itemid);
       displayModal();
     });
 
-    const deleteBtn = document.createElement('span');
-    deleteBtn.classList = 'material-symbols-outlined icon-btn delete-task';
-    deleteBtn.innerHTML = 'delete';
+    const deleteBtn = document.createElement("span");
+    deleteBtn.classList = "material-symbols-outlined icon-btn delete-task";
+    deleteBtn.innerHTML = "delete";
     deleteBtn.dataset.itemid = task.id;
     controlsContainer.appendChild(deleteBtn);
 
-    deleteBtn.addEventListener('click', (event) => {
-      if (window.confirm(`Are you sure you want to delete this task? \n\n ${task.title}`)) {
+    deleteBtn.addEventListener("click", (event) => {
+      if (
+        window.confirm(
+          `Are you sure you want to delete this task? \n\n ${task.title}`
+        )
+      ) {
         tasks.deleteTask(event.target.dataset.itemid);
         loadTasks();
       }
@@ -226,31 +229,31 @@ const updateCurrentView = (view) => {
 };
 
 const updateActiveMenuItem = (newActiveMenuItem) => {
-  const oldActiveMenuItem = document.querySelector('.active');
+  const oldActiveMenuItem = document.querySelector(".active");
   if (oldActiveMenuItem) {
-    oldActiveMenuItem.classList.toggle('active');
+    oldActiveMenuItem.classList.toggle("active");
   }
 
-  newActiveMenuItem.classList.toggle('active');
+  newActiveMenuItem.classList.toggle("active");
 };
 
 const loadProjects = () => {
   const listOfProjects = projects.projectList;
-  const projectList = document.getElementById('project-list');
+  const projectList = document.getElementById("project-list");
   const elements = [];
 
   listOfProjects.forEach((project) => {
-    const newProject = document.createElement('li');
-    newProject.classList.add('sub-item', 'primary-menu-items', 'menu-items');
+    const newProject = document.createElement("li");
+    newProject.classList.add("sub-item", "primary-menu-items", "menu-items");
     newProject.dataset.projectid = project.id;
-    newProject.dataset.display = 'project';
+    newProject.dataset.display = "project";
     newProject.dataset.header = project.title;
 
-    newProject.addEventListener('click', (event) => {
+    newProject.addEventListener("click", (event) => {
       // we need to account for target potentially being a subitem in which case
       // we should get the parent element which holds data attributes
       let target;
-      if (event.target.nodeName !== 'LI') {
+      if (event.target.nodeName !== "LI") {
         target = event.target.parentElement;
       } else {
         target = event.target;
@@ -269,24 +272,24 @@ const loadProjects = () => {
       updatePageHeader(target.dataset.header);
     });
 
-    const titleSpan = document.createElement('span');
+    const titleSpan = document.createElement("span");
     titleSpan.innerText = project.title;
 
-    const crossSpan = document.createElement('span');
-    crossSpan.classList = 'material-symbols-outlined delete-project icon-btn';
-    crossSpan.innerText = 'close';
+    const crossSpan = document.createElement("span");
+    crossSpan.classList = "material-symbols-outlined delete-project icon-btn";
+    crossSpan.innerText = "close";
     newProject.appendChild(titleSpan);
     newProject.appendChild(crossSpan);
 
-    crossSpan.addEventListener('click', (event) => {
+    crossSpan.addEventListener("click", (event) => {
       event.stopPropagation();
 
       projects.deleteProject(event.target.parentElement.dataset.projectid);
 
-      updateCurrentView('inbox');
+      updateCurrentView("inbox");
       loadTasks();
-      updateActiveMenuItem(document.getElementById('inbox'));
-      updatePageHeader('Inbox');
+      updateActiveMenuItem(document.getElementById("inbox"));
+      updatePageHeader("Inbox");
       loadProjects();
     });
 
@@ -297,10 +300,25 @@ const loadProjects = () => {
 };
 
 const createNewProject = () => {
-  const inputProject = document.getElementById('projectNameInput');
+  const inputProject = document.getElementById("projectNameInput");
   projects.newProject(inputProject.value);
   loadProjects();
-  inputProject.value = '';
+  inputProject.value = "";
+};
+
+const handleMobileMenu = () => {
+  const menuOptions = document.getElementById("sidebar");
+  const mainContent = document.getElementById("main");
+  const menuBtn = document.getElementById("menu-icon");
+
+  mainContent.classList.toggle("hide");
+  menuOptions.classList.toggle("mobile-nav");
+
+  if (menuBtn.innerText === "menu") {
+    menuBtn.innerText = "close";
+  } else {
+    menuBtn.innerText = "menu";
+  }
 };
 
 export {
@@ -319,4 +337,5 @@ export {
   handleAccordion,
   displayNewProjectDialog,
   createNewProject,
+  handleMobileMenu,
 };
