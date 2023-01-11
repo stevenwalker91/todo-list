@@ -4,6 +4,8 @@
 
 This is the first major project in a while and compromises some both functional and UI challenges. With some recent projects I've chosen to focus primarily on the project outcome i.e. minimal UI work on programming projects, however with this I'll be aiming to do complete UI and functionality.
 
+[Demo](https://todo-list.steven-walker.co.uk/)
+
 ## Outcomes
 
 Some of the key things to achieve in this project:
